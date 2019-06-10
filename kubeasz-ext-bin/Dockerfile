@@ -10,7 +10,9 @@ ENV ETCD_VER=v3.3.10 \
     DOCKER_VER=18.09.6 \
     CONTAINERD_VER=1.2.6 \
     CNI_VER=v0.7.5 \
-    HELM_VER=v2.14.1
+    HELM_VER=v2.14.1 \
+    DOCKER_COMPOSE_VER=1.23.2 \
+    CALICOCTL_VER=v3.4.4
      
 RUN mkdir -p /extra && \
     \
@@ -47,6 +49,12 @@ RUN mkdir -p /extra && \
     tar zxf cri-containerd-$CONTAINERD_VER.linux-amd64.tar.gz -C cri-containerd && \
     cd cri-containerd/usr/local/bin && mv containerd containerd-shim containerd-shim-runc-v1 crictl ctr /extra/containerd-bin && \
     mv ../sbin/runc /extra/containerd-bin && \
-    cd / && rm -rf cri-containerd*
+    cd / && rm -rf cri-containerd* && \
+    \
+    wget https://github.com/docker/compose/releases/download/$DOCKER_COMPOSE_VER/docker-compose-Linux-x86_64 && \
+    mv docker-compose-Linux-x86_64 /extra/docker-compose && \
+    \
+    wget https://github.com/projectcalico/calicoctl/releases/download/$CALICOCTL_VER/calicoctl-linux-amd64 && \
+    mv calicoctl-linux-amd64 /extra/calicoctl
 
 CMD [ "sleep", "360000000" ]
