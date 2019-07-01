@@ -8,6 +8,7 @@
 FROM centos:7 as rpm_centos7
 
 RUN yum install --downloadonly --downloaddir=/root/down \
+      bash-completion \
       conntrack-tools \
       ipset \
       ipvsadm \
@@ -17,7 +18,7 @@ RUN yum install --downloadonly --downloaddir=/root/down \
       rsync \
       socat && \
     cd /root/down && \
-    tar zcvf /tmp/rpm_centos7.tar.gz *.rpm && \
+    tar zcvf /tmp/basic_centos7.tar.gz *.rpm && \
     rm -rf * && \
     yum install --downloadonly --downloaddir=/root/down chrony && \
     tar zcvf /tmp/chrony_centos7.tar.gz *.rpm && \
@@ -31,8 +32,8 @@ RUN yum install --downloadonly --downloaddir=/root/down \
 # 2.downloading deb packages on Ubuntu1604
 FROM ubuntu:16.04 as deb_xenial
 
-RUN apt-get update && \
-    apt-get install -d -y \
+RUN apt update && \
+    apt install -d -y \
       conntrack \
       ipset \
       ipvsadm \
@@ -42,7 +43,7 @@ RUN apt-get update && \
       rsync \
       socat && \
     cd /var/cache/apt/archives && \
-    tar zcvf /tmp/deb_xenial.tar.gz *.deb && \
+    tar zcvf /tmp/basic_xenial.tar.gz *.deb && \
     rm -rf * && \
     apt-get install -d -y chrony && \
     tar zcvf /tmp/chrony_xenial.tar.gz *.deb && \
@@ -53,11 +54,38 @@ RUN apt-get update && \
     apt-get install -d -y keepalived && \
     tar zcvf /tmp/keepalived_xenial.tar.gz *.deb
 
+# 3.downloading deb packages on Ubuntu1804
+FROM ubuntu:18.04 as deb_bionic
+
+RUN apt update && \
+    apt install -d -y \
+      conntrack \
+      ipset \
+      ipvsadm \
+      jq \
+      libseccomp2 \
+      nfs-common \
+      rsync \
+      socat && \
+    cd /var/cache/apt/archives && \
+    tar zcvf /tmp/basic_bionic.tar.gz *.deb && \
+    rm -rf * && \
+    apt-get install -d -y chrony && \
+    tar zcvf /tmp/chrony_bionic.tar.gz *.deb && \
+    rm -rf * && \
+    apt-get install -d -y haproxy && \
+    tar zcvf /tmp/haproxy_bionic.tar.gz *.deb && \
+    rm -rf * && \
+    apt-get install -d -y keepalived && \
+    tar zcvf /tmp/keepalived_bionic.tar.gz *.deb
+
 # storing packages on alpine
 FROM alpine:3.9
 
 COPY --from=rpm_centos7 /tmp/*.tar.gz /tmp/
 
 COPY --from=deb_xenial /tmp/*.tar.gz /tmp/
+
+COPY --from=deb_bionic /tmp/*.tar.gz /tmp/
 
 CMD [ "sleep", "360000000" ]
