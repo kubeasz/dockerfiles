@@ -79,6 +79,31 @@ RUN apt update && \
     apt-get install -d -y keepalived && \
     tar zcvf /tmp/keepalived_bionic.tar.gz *.deb
 
+# 4.downloading deb packages on Debian9
+FROM debian:9 as deb_stretch
+
+RUN apt update && \
+    apt install -d -y \
+      conntrack \
+      ipset \
+      ipvsadm \
+      jq \
+      libseccomp2 \
+      nfs-common \
+      rsync \
+      socat && \
+    cd /var/cache/apt/archives && \
+    tar zcvf /tmp/basic_stretch.tar.gz *.deb && \
+    rm -rf * && \
+    apt-get install -d -y chrony && \
+    tar zcvf /tmp/chrony_stretch.tar.gz *.deb && \
+    rm -rf * && \
+    apt-get install -d -y haproxy && \
+    tar zcvf /tmp/haproxy_stretch.tar.gz *.deb && \
+    rm -rf * && \
+    apt-get install -d -y keepalived && \
+    tar zcvf /tmp/keepalived_stretch.tar.gz *.deb
+
 # storing packages on alpine
 FROM alpine:3.9
 
@@ -87,5 +112,7 @@ COPY --from=rpm_centos7 /tmp/*.tar.gz /packages/
 COPY --from=deb_xenial /tmp/*.tar.gz /packages/
 
 COPY --from=deb_bionic /tmp/*.tar.gz /packages/
+
+COPY --from=deb_stretch /tmp/*.tar.gz /packages/
 
 CMD [ "sleep", "360000000" ]
