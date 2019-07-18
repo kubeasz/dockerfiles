@@ -90,6 +90,7 @@ RUN apt update && \
       jq \
       libseccomp2 \
       nfs-common \
+      psmisc \
       rsync \
       socat && \
     cd /var/cache/apt/archives && \
@@ -104,6 +105,32 @@ RUN apt update && \
     apt-get install -d -y keepalived && \
     tar zcvf /tmp/keepalived_stretch.tar.gz *.deb
 
+# 5.downloading deb packages on Debian10
+FROM debian:10 as deb_buster
+
+RUN apt update && \
+    apt install -d -y \
+      conntrack \
+      ipset \
+      ipvsadm \
+      jq \
+      libseccomp2 \
+      nfs-common \
+      psmisc \
+      rsync \
+      socat && \
+    cd /var/cache/apt/archives && \
+    tar zcvf /tmp/basic_buster.tar.gz *.deb && \
+    rm -rf * && \
+    apt-get install -d -y chrony && \
+    tar zcvf /tmp/chrony_buster.tar.gz *.deb && \
+    rm -rf * && \
+    apt-get install -d -y haproxy && \
+    tar zcvf /tmp/haproxy_buster.tar.gz *.deb && \
+    rm -rf * && \
+    apt-get install -d -y keepalived && \
+    tar zcvf /tmp/keepalived_buster.tar.gz *.deb
+
 # storing packages on alpine
 FROM alpine:3.9
 
@@ -114,5 +141,7 @@ COPY --from=deb_xenial /tmp/*.tar.gz /packages/
 COPY --from=deb_bionic /tmp/*.tar.gz /packages/
 
 COPY --from=deb_stretch /tmp/*.tar.gz /packages/
+
+COPY --from=deb_buster /tmp/*.tar.gz /packages/
 
 CMD [ "sleep", "360000000" ]
