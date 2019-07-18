@@ -17,7 +17,7 @@ RUN yum install --downloadonly --downloaddir=/root/down \
       psmisc \
       rsync \
       socat && \
-    cd /root/down && \
+    cd /root/down && rm -f systemd* && \
     tar zcvf /tmp/basic_centos7.tar.gz *.rpm && \
     rm -rf * && \
     yum install --downloadonly --downloaddir=/root/down chrony && \
