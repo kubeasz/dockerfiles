@@ -6,7 +6,7 @@
 
 FROM easzlab/ansible:2.6.12
 
-ENV KUBEASZ_VER=2.0.1
+ENV KUBEASZ_VER=2.0.2
 
 RUN wget https://github.com/easzlab/kubeasz/archive/$KUBEASZ_VER.tar.gz && \
     tar zxf $KUBEASZ_VER* && \
