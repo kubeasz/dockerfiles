@@ -134,6 +134,8 @@ RUN apt update && \
 # storing packages on alpine
 FROM alpine:3.9
 
+ENV SYS_PKG_VER=0.3.3
+
 COPY --from=rpm_centos7 /tmp/*.tar.gz /packages/
 
 COPY --from=deb_xenial /tmp/*.tar.gz /packages/
