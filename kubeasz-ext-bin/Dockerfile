@@ -13,11 +13,11 @@ ENV ETCD_VER=v3.3.15 \
     HELM_VER=v2.14.1 \
     DOCKER_COMPOSE_VER=1.23.2 \
     CALICOCTL_VER=v3.4.4 \
-    EXT_BIN_VER=0.3.1
+    EXT_BIN_VER=0.3.2
      
 RUN mkdir -p /extra && \
     \
-    wget https://storage.googleapis.com/etcd/$ETCD_VER/etcd-$ETCD_VER-linux-amd64.tar.gz && \
+    wget https://github.com/etcd-io/etcd/releases/download/$ETCD_VER/etcd-$ETCD_VER-linux-amd64.tar.gz && \
     tar zxf etcd-$ETCD_VER-linux-amd64.tar.gz && \
     cd etcd-$ETCD_VER-linux-amd64 && \
     mv etcd etcdctl /extra && \
