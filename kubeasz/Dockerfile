@@ -5,9 +5,9 @@
 # @ref:     https://github.com/easzlab/kubeasz
 FROM alpine:3.9
 
-ENV KUBEASZ_VER=2.0.3
-ENV ANSIBLE_VER=2.6.12
-ENV NETADDR_VER=0.7.19
+ENV KUBEASZ_VER=2.1.0 \
+    ANSIBLE_VER=2.6.18 \
+    NETADDR_VER=0.7.19
 
 RUN echo "===> Adding Python runtime..."                                    && \
     apk --update add python py-pip openssl ca-certificates                  && \
