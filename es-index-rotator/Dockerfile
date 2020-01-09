@@ -2,9 +2,9 @@
 #
 # @author:  gjmzj
 # @repo:    https://github.com/kubeasz/mirrorepo/es-index-rotator
-# @ref:     https://github.com/easzlab/kubeasz/tree/master/dockerfiles/es-index-rotator
+# @ref:     https://github.com/easzlab/kubeasz/tree/master/manifests/efk/es-index-rotator/rotator.yaml 
 
-FROM alpine:3.8
+FROM alpine:3.9
 
 COPY rotate.sh /bin/rotate.sh
 
