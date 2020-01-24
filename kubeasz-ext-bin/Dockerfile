@@ -6,14 +6,14 @@
 
 FROM alpine:3.9
 
-ENV ETCD_VER=v3.3.15 \
-    DOCKER_VER=18.09.9 \
+ENV ETCD_VER=v3.4.3 \
+    DOCKER_VER=19.03.5 \
     CONTAINERD_VER=1.2.6 \
     CNI_VER=v0.7.5 \
     HELM_VER=v2.14.1 \
     DOCKER_COMPOSE_VER=1.23.2 \
     CALICOCTL_VER=v3.4.4 \
-    EXT_BIN_VER=0.3.2
+    EXT_BIN_VER=0.4.0
      
 RUN mkdir -p /extra && \
     \
