@@ -36,7 +36,7 @@ RUN mkdir -p /extra && \
     mv cfssl-certinfo_linux-amd64 /extra/cfssl-certinfo && \
     \
     wget https://github.com/containernetworking/plugins/releases/download/$CNI_VER/cni-plugins-linux-amd64-$CNI_VER.tgz && \
-    mkdir /cni && tar zxf cni-plugins-amd64-$CNI_VER.tgz -C /cni && \
+    mkdir /cni && tar zxf cni-plugins-linux-amd64-$CNI_VER.tgz -C /cni && \
     cd /cni && mv bridge flannel host-local loopback portmap tuning /extra && \
     cd / && rm -rf cni* && \
     \
