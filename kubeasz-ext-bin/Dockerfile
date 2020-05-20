@@ -9,11 +9,11 @@ FROM alpine:3.9
 ENV ETCD_VER=v3.4.3 \
     DOCKER_VER=19.03.9 \
     CONTAINERD_VER=1.2.6 \
-    CNI_VER=v0.8.5 \
+    CNI_VER=v0.8.6 \
     HELM_VER=v3.2.1 \
     DOCKER_COMPOSE_VER=1.23.2 \
     CALICOCTL_VER=v3.8.8 \
-    EXT_BIN_VER=0.5.0
+    EXT_BIN_VER=0.5.1
      
 RUN mkdir -p /extra && \
     \
@@ -35,7 +35,7 @@ RUN mkdir -p /extra && \
     mv cfssljson_linux-amd64 /extra/cfssljson && \
     mv cfssl-certinfo_linux-amd64 /extra/cfssl-certinfo && \
     \
-    wget https://github.com/containernetworking/plugins/releases/download/$CNI_VER/cni-plugins-amd64-$CNI_VER.tgz && \
+    wget https://github.com/containernetworking/plugins/releases/download/$CNI_VER/cni-plugins-linux-amd64-$CNI_VER.tgz && \
     mkdir /cni && tar zxf cni-plugins-amd64-$CNI_VER.tgz -C /cni && \
     cd /cni && mv bridge flannel host-local loopback portmap tuning /extra && \
     cd / && rm -rf cni* && \
