@@ -7,13 +7,11 @@
 FROM alpine:3.9
 
 ENV ETCD_VER=v3.4.3 \
-    DOCKER_VER=19.03.9 \
-    CONTAINERD_VER=1.2.6 \
     CNI_VER=v0.8.6 \
     HELM_VER=v3.2.1 \
     DOCKER_COMPOSE_VER=1.23.2 \
     CALICOCTL_VER=v3.8.8 \
-    EXT_BIN_VER=0.5.1
+    EXT_BIN_VER=0.5.2
      
 RUN mkdir -p /extra && \
     \
@@ -22,11 +20,6 @@ RUN mkdir -p /extra && \
     cd etcd-$ETCD_VER-linux-amd64 && \
     mv etcd etcdctl /extra && \
     cd / && rm -rf etcd-$ETCD_VER-linux-amd64* && \
-    \
-    wget https://download.docker.com/linux/static/stable/x86_64/docker-$DOCKER_VER.tgz && \
-    tar zxf docker-$DOCKER_VER.tgz && \
-    mv docker/* /extra && \
-    rm -rf docker* && \
     \
     wget https://pkg.cfssl.org/R1.2/cfssl_linux-amd64 && \
     wget https://pkg.cfssl.org/R1.2/cfssljson_linux-amd64 && \
@@ -44,13 +37,6 @@ RUN mkdir -p /extra && \
     tar zxf helm-$HELM_VER-linux-amd64.tar.gz && \
     mv linux-amd64/helm /extra && \
     rm -rf linux-amd64 helm-$HELM_VER-linux-amd64.tar.gz && \
-    \
-    wget https://storage.googleapis.com/cri-containerd-release/cri-containerd-$CONTAINERD_VER.linux-amd64.tar.gz && \
-    mkdir cri-containerd /extra/containerd-bin && \
-    tar zxf cri-containerd-$CONTAINERD_VER.linux-amd64.tar.gz -C cri-containerd && \
-    cd cri-containerd/usr/local/bin && mv containerd containerd-shim containerd-shim-runc-v1 crictl ctr /extra/containerd-bin && \
-    mv ../sbin/runc /extra/containerd-bin && \
-    cd / && rm -rf cri-containerd* && \
     \
     wget https://github.com/docker/compose/releases/download/$DOCKER_COMPOSE_VER/docker-compose-Linux-x86_64 && \
     mv docker-compose-Linux-x86_64 /extra/docker-compose && \
