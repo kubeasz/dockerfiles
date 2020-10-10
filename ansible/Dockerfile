@@ -1,5 +1,4 @@
 # Dockerfile for building Ansible image for Alpine 3
-# Origin from https://github.com/William-Yeh/docker-ansible
 
 FROM alpine:3.9
 

@@ -1,8 +1,5 @@
 # Download system packages (rpm or deb) needed by 'kubeasz'
 #
-# @author:  gjmzj
-# @repo:    https://github.com/kubeasz/dockerfiles/kubeasz-sys-pkg
-# @ref:     https://github.com/easzlab/kubeasz
 
 # 1.downloading rpm packages on CentOS7
 FROM centos:7 as rpm_centos7

@@ -1,6 +1,4 @@
 # chrony dockerfile
-# @usage:   docker run -d -p123:123/udp -v /your_chrony.conf:/etc/chrony/chrony.conf easzlab/chrony:$TAG
-# @author:  gjmzj
 # @repo:    https://github.com/kubeasz/dockerfiles/chrony
 # @ref:     https://github.com/easzlab/kubeasz
 

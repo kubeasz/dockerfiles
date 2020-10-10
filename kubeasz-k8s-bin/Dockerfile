@@ -1,12 +1,9 @@
 # Download kubernetes binaries needed by 'kubeasz'
 #
-# @author:  gjmzj
-# @repo:    https://github.com/kubeasz/dockerfiles/kubeasz-k8s-bin
-# @ref:     https://github.com/easzlab/kubeasz
 
 FROM alpine:3.9
 
-ENV K8S_VER=v1.16.15
+ENV K8S_VER=v1.19.0
 
 RUN wget https://dl.k8s.io/$K8S_VER/kubernetes-server-linux-amd64.tar.gz && \
     tar zxf kubernetes-server-linux-amd64.tar.gz && \

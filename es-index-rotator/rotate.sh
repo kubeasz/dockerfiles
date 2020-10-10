@@ -1,11 +1,14 @@
 #!/bin/bash
 #--------------------------------------------------
 # Rotate the indices in elastic of the EFK deployment
+<<<<<<< Updated upstream
 #
 # @author:  gjmzj
 # @usage:   ./rotator.sh <max_days_of_log> [<index_prefix1> ...] 
 # @repo:    https://github.com/kubeasz/mirrorepo/es-index-rotator
 # @ref:     https://github.com/easzlab/kubeasz/tree/master/manifests/efk/es-index-rotator/rotator.yaml
+=======
+>>>>>>> Stashed changes
 
 set -o nounset
 set -o errexit

@@ -1,8 +1,4 @@
 # Dockerfile for building images to run kubeasz in a container
-#
-# @author:  gjmzj
-# @repo:    https://github.com/kubeasz/dockerfiles/kubeasz
-# @ref:     https://github.com/easzlab/kubeasz
 FROM alpine:3.9
 
 ENV KUBEASZ_VER=2.2.1 \
