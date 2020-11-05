@@ -6,12 +6,12 @@
 
 FROM alpine:3.9
 
-ENV ETCD_VER=v3.4.3 \
-    CNI_VER=v0.8.6 \
-    HELM_VER=v3.2.1 \
+ENV ETCD_VER=v3.4.13 \
+    CNI_VER=v0.8.7 \
+    HELM_VER=v3.2.4 \
     DOCKER_COMPOSE_VER=1.23.2 \
     CALICOCTL_VER=v3.8.8 \
-    EXT_BIN_VER=0.5.2
+    EXT_BIN_VER=0.6.0
      
 RUN mkdir -p /extra && \
     \
