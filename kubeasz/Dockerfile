@@ -3,9 +3,9 @@
 # @author:  gjmzj
 # @repo:    https://github.com/kubeasz/dockerfiles/kubeasz
 # @ref:     https://github.com/easzlab/kubeasz
-FROM alpine:3.9
+FROM alpine:3.12
 
-ENV KUBEASZ_VER=2.2.1 \
+ENV KUBEASZ_VER=2.2.2 \
     ANSIBLE_VER=2.6.18 \
     NETADDR_VER=0.7.19
 
