@@ -48,8 +48,8 @@ RUN mkdir -p /extra && \
     mv calicoctl-linux-amd64 /extra/calicoctl && \
     \
     mkdir -p /extra/containerd-bin && \
-    wget https://github.com/kubernetes-sigs/cri-tools/releases/download/$CRICTL_VER/crictl-$CALICOCTL_VER-linux-amd64.tar.gz && \
-    tar zxf crictl-$CALICOCTL_VER-linux-amd64.tar.gz -C /extra/containerd-bin && \
+    wget https://github.com/kubernetes-sigs/cri-tools/releases/download/$CRICTL_VER/crictl-$CRICTL_VER-linux-amd64.tar.gz && \
+    tar zxf crictl-$CRICTL_VER-linux-amd64.tar.gz -C /extra/containerd-bin && \
     wget https://github.com/opencontainers/runc/releases/download/$RUNC_VER/runc.amd64 && \
     chmod +x runc.amd64 && mv runc.amd64 /extra/containerd-bin/runc && \
     wget https://github.com/containerd/containerd/releases/download/v$CONTAINERD_VER/containerd-$CONTAINERD_VER-linux-amd64.tar.gz && \
