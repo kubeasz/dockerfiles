@@ -11,7 +11,10 @@ ENV ETCD_VER=v3.4.13 \
     HELM_VER=v3.2.4 \
     DOCKER_COMPOSE_VER=1.23.2 \
     CALICOCTL_VER=v3.8.8 \
-    EXT_BIN_VER=0.6.0
+    CRICTL_VER=v1.19.0 \
+    RUNC_VER=v1.0.0-rc92 \
+    CONTAINERD_VER=1.4.1 \
+    EXT_BIN_VER=0.7.0
      
 RUN mkdir -p /extra && \
     \
@@ -42,6 +45,15 @@ RUN mkdir -p /extra && \
     mv docker-compose-Linux-x86_64 /extra/docker-compose && \
     \
     wget https://github.com/projectcalico/calicoctl/releases/download/$CALICOCTL_VER/calicoctl-linux-amd64 && \
-    mv calicoctl-linux-amd64 /extra/calicoctl
+    mv calicoctl-linux-amd64 /extra/calicoctl && \
+    \
+    mkdir -p /extra/containerd-bin && \
+    wget https://github.com/kubernetes-sigs/cri-tools/releases/download/$CRICTL_VER/crictl-$CALICOCTL_VER-linux-amd64.tar.gz && \
+    tar zxf crictl-$CALICOCTL_VER-linux-amd64.tar.gz -C /extra/containerd-bin && \
+    wget https://github.com/opencontainers/runc/releases/download/$RUNC_VER/runc.amd64 && \
+    chmod +x runc.amd64 && mv runc.amd64 /extra/containerd-bin/runc && \
+    wget https://github.com/containerd/containerd/releases/download/v$CONTAINERD_VER/containerd-$CONTAINERD_VER-linux-amd64.tar.gz && \
+    tar zxf containerd-$CONTAINERD_VER-linux-amd64.tar.gz -C /tmp && \
+    mv /tmp/bin/* /extra/containerd-bin
 
 CMD [ "sleep", "360000000" ]
