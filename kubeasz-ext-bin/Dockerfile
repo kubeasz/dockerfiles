@@ -8,13 +8,13 @@ FROM alpine:3.9
 
 ENV ETCD_VER=v3.4.13 \
     CNI_VER=v0.8.7 \
-    HELM_VER=v3.2.4 \
+    HELM_VER=v3.4.2 \
     DOCKER_COMPOSE_VER=1.23.2 \
-    CALICOCTL_VER=v3.8.8 \
+    CALICOCTL_VER=v3.15.3 \
     CRICTL_VER=v1.19.0 \
     RUNC_VER=v1.0.0-rc92 \
-    CONTAINERD_VER=1.4.1 \
-    EXT_BIN_VER=0.7.0
+    CONTAINERD_VER=1.3.9 \
+    EXT_BIN_VER=0.8.0
      
 RUN mkdir -p /extra && \
     \
