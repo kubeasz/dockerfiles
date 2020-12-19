@@ -5,7 +5,7 @@
 # @ref:     https://github.com/easzlab/kubeasz
 FROM alpine:3.9
 
-ENV KUBEASZ_VER=2.2.2 \
+ENV KUBEASZ_VER=2.2.3 \
     ANSIBLE_VER=2.6.18 \
     NETADDR_VER=0.7.19
 
