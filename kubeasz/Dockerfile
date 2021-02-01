@@ -1,8 +1,7 @@
 # Dockerfile for building images to run kubeasz in a container
 #
 # @author:  gjmzj
-# @repo:    https://github.com/kubeasz/dockerfiles/kubeasz
-# @ref:     https://github.com/easzlab/kubeasz
+# @repo:     https://github.com/easzlab/kubeasz
 
 FROM alpine:3.9
 
@@ -24,8 +23,9 @@ RUN echo "===> Adding Python runtime..." && \
     echo "===> Downloading kubeasz..." && \
     wget https://github.com/easzlab/kubeasz/archive/"$KUBEASZ_VER".tar.gz && \
     tar zxf ./"$KUBEASZ_VER".tar.gz && \
-    mv kubeasz-"$KUBEASZ_VER" /etc/ansible && \
-    ln -s /etc/ansible/tools/easzctl /usr/bin/easzctl && \
+    mv kubeasz-"$KUBEASZ_VER" /etc/kubeasz && \
+    ln -s /etc/kubeasz/ezctl /usr/bin/ezctl && \
+    ln -s /etc/kubeasz/ezdown /usr/bin/ezdown && \
     \
     echo "===> Removing package list..." && \
     apk del build-dependencies && \
