@@ -5,7 +5,7 @@
 
 FROM alpine:3.9
 
-ENV KUBEASZ_VER=3.0.0 \
+ENV KUBEASZ_VER=3.0.1 \
     ANSIBLE_VER=2.10.4
 
 RUN echo "===> Adding Python runtime..." && \
