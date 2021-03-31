@@ -4,7 +4,25 @@
 # @repo:    https://github.com/kubeasz/dockerfiles/kubeasz-ext-bin
 # @ref:     https://github.com/easzlab/kubeasz
 
-FROM alpine:3.9
+FROM centos:7 as rpm_centos7
+
+ENV NGINX_VERSION=1.18.0
+
+RUN yum install -y \
+      gcc \
+      make \
+ && curl -o nginx.tar.gz -SL http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz \
+ && tar -xzf nginx.tar.gz -C /tmp/ \
+ && cd /tmp/nginx-* \
+ && ./configure --with-stream \
+                --without-http \
+                --without-http_uwsgi_module \
+                --without-http_scgi_module \
+                --without-http_fastcgi_module \
+ && make && make install
+
+
+FROM alpine:3.12
 
 ENV ETCD_VER=v3.4.13 \
     CNI_VER=v0.8.7 \
@@ -14,8 +32,8 @@ ENV ETCD_VER=v3.4.13 \
     CRICTL_VER=v1.19.0 \
     RUNC_VER=v1.0.0-rc92 \
     CONTAINERD_VER=1.4.3 \
-    EXT_BIN_VER=0.8.1
-     
+    EXT_BIN_VER=0.9.0
+
 RUN mkdir -p /extra && \
     \
     wget https://github.com/etcd-io/etcd/releases/download/$ETCD_VER/etcd-$ETCD_VER-linux-amd64.tar.gz && \
@@ -55,5 +73,7 @@ RUN mkdir -p /extra && \
     wget https://github.com/containerd/containerd/releases/download/v$CONTAINERD_VER/containerd-$CONTAINERD_VER-linux-amd64.tar.gz && \
     tar zxf containerd-$CONTAINERD_VER-linux-amd64.tar.gz -C /tmp && \
     mv /tmp/bin/* /extra/containerd-bin
+
+COPY --from=rpm_centos7 /usr/local/nginx/sbin/nginx /extra
 
 CMD [ "sleep", "360000000" ]
