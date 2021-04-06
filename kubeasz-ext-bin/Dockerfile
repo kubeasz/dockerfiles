@@ -23,7 +23,7 @@ RUN yum install -y \
                 --without-http_scgi_module \
                 --without-http_fastcgi_module \
  && make && make install \
- && cd \
+ && cd / \
  && curl -o chrony.tar.gz -SL $CHRONY_DOWNLOAD_URL \
  && echo "${CHRONY_SHA256} *chrony.tar.gz" | sha256sum -c - \
  && tar xzf chrony.tar.gz -C /tmp/
@@ -51,7 +51,7 @@ ENV ETCD_VER=v3.4.13 \
     CRICTL_VER=v1.19.0 \
     RUNC_VER=v1.0.0-rc92 \
     CONTAINERD_VER=1.4.3 \
-    EXT_BIN_VER=0.9.0
+    EXT_BIN_VER=0.9.1
 
 RUN mkdir -p /extra && \
     \
