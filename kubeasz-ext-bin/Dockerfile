@@ -26,7 +26,7 @@ RUN yum install -y \
  && cd / \
  && curl -o chrony.tar.gz -SL $CHRONY_DOWNLOAD_URL \
  && echo "${CHRONY_SHA256} *chrony.tar.gz" | sha256sum -c - \
- && tar xzf chrony.tar.gz -C /tmp/
+ && tar xzf chrony.tar.gz -C /tmp/ \
  && cd /tmp/chrony* \
  && ./configure \
         --without-editline \
