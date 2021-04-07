@@ -10,10 +10,14 @@ ENV NGINX_VERSION=1.18.0
 ENV CHRONY_VERSION 4.0
 ENV CHRONY_DOWNLOAD_URL "https://download.tuxfamily.org/chrony/chrony-${CHRONY_VERSION}.tar.gz"
 ENV CHRONY_SHA256 be27ea14c55e7a4434b2fa51d53018c7051c42fa6a3198c9aa6a1658bae0c625
+ENV KEEPALIVED_VERSION 2.0.20
+ENV KEEPALIVED_DOWNLOAD_URL "http://keepalived.org/software/keepalived-${KEEPALIVED_VERSION}.tar.gz"
 
 RUN yum install -y \
       gcc \
       make \
+      openssl \
+      openssl-devel \
  && curl -o nginx.tar.gz -SL http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz \
  && tar -xzf nginx.tar.gz -C /tmp/ \
  && cd /tmp/nginx-* \
@@ -38,8 +42,24 @@ RUN yum install -y \
         --without-seccomp \
         --disable-asyncdns \
         --disable-cmdmon \
+  && make && make install \
+  && cd / \
+  && curl -o keepalived.tar.gz -SL $KEEPALIVED_DOWNLOAD_URL \
+  && tar xzf keepalived.tar.gz -C /tmp/ \
+  && cd /tmp/keepalived* \
+  && ./configure \
+		--disable-dynamic-linking \
+		--disable-FEATURE \
+      --disable-lvs \
+		--disable-vrrp-auth \
+		--disable-routes \
+		--disable-linkbeat \
+		--disable-iptables \
+		--disable-libipset-dynamic \
+		--disable-nftables \
+		--disable-hardening \
+		--with-init=systemd \
   && make && make install
-
 
 FROM alpine:3.12
 
@@ -95,5 +115,6 @@ RUN mkdir -p /extra && \
 
 COPY --from=rpm_centos7 /usr/local/nginx/sbin/nginx /extra
 COPY --from=rpm_centos7 /usr/local/sbin/chronyd /extra
+COPY --from=rpm_centos7 /usr/local/sbin/keepalived /extra
 
 CMD [ "sleep", "360000000" ]
