@@ -4,9 +4,9 @@
 # @repo:    https://github.com/kubeasz/dockerfiles/kubeasz-k8s-bin
 # @ref:     https://github.com/easzlab/kubeasz
 
-FROM alpine:3.9
+FROM alpine:3.12
 
-ENV K8S_VER=v1.20.5
+ENV K8S_VER=v1.21.0
 
 RUN wget https://dl.k8s.io/$K8S_VER/kubernetes-server-linux-amd64.tar.gz && \
     tar zxf kubernetes-server-linux-amd64.tar.gz && \
