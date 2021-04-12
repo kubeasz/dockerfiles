@@ -68,10 +68,10 @@ ENV ETCD_VER=v3.4.13 \
     HELM_VER=v3.4.2 \
     DOCKER_COMPOSE_VER=1.23.2 \
     CALICOCTL_VER=v3.15.3 \
-    CRICTL_VER=v1.19.0 \
-    RUNC_VER=v1.0.0-rc92 \
-    CONTAINERD_VER=1.4.3 \
-    EXT_BIN_VER=0.9.1
+    CRICTL_VER=v1.21.0 \
+    RUNC_VER=v1.0.0-rc93 \
+    CONTAINERD_VER=1.4.4 \
+    EXT_BIN_VER=0.9.4
 
 RUN mkdir -p /extra && \
     \
