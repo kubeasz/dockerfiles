@@ -51,7 +51,23 @@ RUN apt update && \
     cd /var/cache/apt/archives && \
     tar zcvf /tmp/basic_bionic.tar.gz *.deb
 
-# 4.downloading deb packages on Debian9
+# 4.downloading deb packages on Ubuntu2004
+FROM ubuntu:20.04 as deb_focal
+
+RUN apt update && \
+    apt install -d -y \
+      conntrack \
+      ipset \
+      ipvsadm \
+      jq \
+      libseccomp2 \
+      nfs-common \
+      rsync \
+      socat && \
+    cd /var/cache/apt/archives && \
+    tar zcvf /tmp/basic_focal.tar.gz *.deb
+
+# 5.downloading deb packages on Debian9
 FROM debian:9 as deb_stretch
 
 RUN apt update && \
@@ -67,7 +83,7 @@ RUN apt update && \
     cd /var/cache/apt/archives && \
     tar zcvf /tmp/basic_stretch.tar.gz *.deb
 
-# 5.downloading deb packages on Debian10
+# 6.downloading deb packages on Debian10
 FROM debian:10 as deb_buster
 
 RUN apt update && \
@@ -86,13 +102,15 @@ RUN apt update && \
 # storing packages on alpine
 FROM alpine:3.12
 
-ENV SYS_PKG_VER=0.4.0
+ENV SYS_PKG_VER=0.4.1
 
 COPY --from=rpm_centos7 /tmp/*.tar.gz /packages/
 
 COPY --from=deb_xenial /tmp/*.tar.gz /packages/
 
 COPY --from=deb_bionic /tmp/*.tar.gz /packages/
+
+COPY --from=deb_focal /tmp/*.tar.gz /packages/
 
 COPY --from=deb_stretch /tmp/*.tar.gz /packages/
 
