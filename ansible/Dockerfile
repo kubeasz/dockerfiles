@@ -19,7 +19,7 @@ RUN set -x \
         rsync \
     && pip install pip --upgrade \
     && pip install --no-cache-dir \
-        ansible-base=="$ANSIBLE_VER" \
+        ansible=="$ANSIBLE_VER" \
        # Some module need '/usr/bin/python' exist
     && ln -s -f /usr/local/bin/python3 /usr/bin/python \
     && ln -s -f /usr/local/bin/python3 /usr/bin/python3 \
