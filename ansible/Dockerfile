@@ -19,17 +19,7 @@ RUN set -x \
         rsync \
     && pip install pip --upgrade \
     && pip install --no-cache-dir \
-        ansible=="$ANSIBLE_VER" \
-       # Remove unnecessary ansible packages
-    && mv /usr/local/lib/python3.9/site-packages/ansible_collections/ansible /tmp \
-    && mv /usr/local/lib/python3.9/site-packages/ansible_collections/community /tmp \
-    && rm -rf /usr/local/lib/python3.9/site-packages/ansible_collections/* \
-    && mv /tmp/ansible /tmp/community /usr/local/lib/python3.9/site-packages/ansible_collections \
-    && mv /usr/local/lib/python3.9/site-packages/ansible_collections/community/crypto /tmp \
-    && mv /usr/local/lib/python3.9/site-packages/ansible_collections/community/general /tmp \
-    && mv /usr/local/lib/python3.9/site-packages/ansible_collections/community/network /tmp \
-    && rm -rf /usr/local/lib/python3.9/site-packages/ansible_collections/community/* \
-    && mv /tmp/crypto /tmp/general /tmp/network /usr/local/lib/python3.9/site-packages/ansible_collections/community/ \
+        ansible-base=="$ANSIBLE_VER" \
        # Some module need '/usr/bin/python' exist
     && ln -s -f /usr/local/bin/python3 /usr/bin/python \
     && ln -s -f /usr/local/bin/python3 /usr/bin/python3 \
