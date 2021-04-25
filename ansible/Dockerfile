@@ -1,29 +1,42 @@
-# Dockerfile for building Ansible image for Alpine 3
-# Origin from https://github.com/William-Yeh/docker-ansible
+FROM python:3.9-alpine
 
-FROM alpine:3.9
+ENV ANSIBLE_VER=2.10.6
 
-RUN \ 
-    echo "===> Adding Python runtime..."  && \
-    apk --update add python py-pip openssl ca-certificates    && \
-    apk --update add --virtual build-dependencies \
-        python-dev libffi-dev openssl-dev build-base          && \
-    pip install --upgrade pip cffi                            && \
-    \
-    \
-    echo "===> Installing Ansible..."  && \
-    pip install ansible==2.6.12        && \
-    \
-    \
-    echo "===> Installing handy tools..."          && \
-    pip install --upgrade pycrypto                 && \
-    apk --update add bash openssh-client rsync     && \
-    \
-    \
-    echo "===> Removing package list..."  && \
-    apk del build-dependencies            && \
-    rm -rf /var/cache/apk/*               && \
-    rm -rf /root/.cache
+RUN set -x \
+       # Build dependencies
+    && apk --no-cache add --virtual build-dependencies \
+        gcc \
+        musl-dev \
+        python3-dev \
+        libffi-dev \
+        openssl-dev \
+        cargo \
+        build-base \
+       # Useful tools
+    && apk --no-cache add \
+        bash \
+        openssh-client \
+        rsync \
+    && pip install pip --upgrade \
+    && pip install --no-cache-dir \
+        ansible=="$ANSIBLE_VER" \
+       # Remove unnecessary ansible packages
+    && mv /usr/local/lib/python3.9/site-packages/ansible_collections/ansible /tmp \
+    && mv /usr/local/lib/python3.9/site-packages/ansible_collections/community /tmp \
+    && rm -rf /usr/local/lib/python3.9/site-packages/ansible_collections/* \
+    && mv /tmp/ansible /tmp/community /usr/local/lib/python3.9/site-packages/ansible_collections \
+    && mv /usr/local/lib/python3.9/site-packages/ansible_collections/community/crypto /tmp \
+    && mv /usr/local/lib/python3.9/site-packages/ansible_collections/community/general /tmp \
+    && mv /usr/local/lib/python3.9/site-packages/ansible_collections/community/network /tmp \
+    && rm -rf /usr/local/lib/python3.9/site-packages/ansible_collections/community/* \
+    && mv /tmp/crypto /tmp/general /tmp/network /usr/local/lib/python3.9/site-packages/ansible_collections/community/ \
+       # Some module need '/usr/bin/python' exist
+    && ln -s -f /usr/local/bin/python3 /usr/bin/python \
+    && ln -s -f /usr/local/bin/python3 /usr/bin/python3 \
+       # Cleaning
+    && apk del build-dependencies \
+    && rm -rf /var/cache/apk/* \
+    && rm -rf /root/.cache \
+    && rm -rf /root/.cargo
 
-# default command: display Ansible version
-CMD [ "ansible", "--version" ]
+CMD [ "sleep", "360000000" ]
