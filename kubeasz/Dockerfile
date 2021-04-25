@@ -3,34 +3,16 @@
 # @author:  gjmzj
 # @repo:     https://github.com/easzlab/kubeasz
 
-FROM alpine:3.9
+FROM easzlab/ansible:2.10.6-lite
 
-ENV KUBEASZ_VER=3.0.1 \
-    ANSIBLE_VER=2.10.4
+ENV KUBEASZ_VER=3.1.0
 
-RUN echo "===> Adding Python runtime..." && \
-    apk --update add python py-pip openssl ca-certificates && \
-    apk --update add --virtual build-dependencies python-dev libffi-dev openssl-dev build-base && \
-    pip install --upgrade pip cffi && \
-    \
-    echo "===> Installing Ansible..." && \
-    pip install ansible=="$ANSIBLE_VER" && \
-    \
-    echo "===> Installing handy tools..." && \
-    pip install --upgrade pycrypto && \
-    apk --update add bash openssh-client rsync && \
-    \
-    echo "===> Downloading kubeasz..." && \
-    wget https://github.com/easzlab/kubeasz/archive/"$KUBEASZ_VER".tar.gz && \
-    tar zxf ./"$KUBEASZ_VER".tar.gz && \
-    mv kubeasz-"$KUBEASZ_VER" /etc/kubeasz && \
-    ln -s /etc/kubeasz/ezctl /usr/bin/ezctl && \
-    ln -s /etc/kubeasz/ezdown /usr/bin/ezdown && \
-    \
-    echo "===> Removing package list..." && \
-    apk del build-dependencies && \
-    rm -rf /var/cache/apk/* && \
-    rm -rf /root/.cache && \
-    rm -rf ./"$KUBEASZ_VER".tar.gz
-
-CMD [ "sleep", "360000000" ]
+RUN set -x \
+      # Downloading kubeasz
+    && wget https://github.com/easzlab/kubeasz/archive/"$KUBEASZ_VER".tar.gz \
+    && tar zxf ./"$KUBEASZ_VER".tar.gz \
+    && mv kubeasz-"$KUBEASZ_VER" /etc/kubeasz \
+    && ln -s /etc/kubeasz/ezctl /usr/bin/ezctl \
+    && ln -s /etc/kubeasz/ezdown /usr/bin/ezdown \
+      # Cleaning
+    && rm -rf ./"$KUBEASZ_VER".tar.gz
