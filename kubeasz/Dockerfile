@@ -12,7 +12,7 @@ RUN set -x \
     && wget https://github.com/easzlab/kubeasz/archive/"$KUBEASZ_VER".tar.gz \
     && tar zxf ./"$KUBEASZ_VER".tar.gz \
     && mv kubeasz-"$KUBEASZ_VER" /etc/kubeasz \
-    && ln -s /etc/kubeasz/ezctl /usr/bin/ezctl \
-    && ln -s /etc/kubeasz/ezdown /usr/bin/ezdown \
+    && ln -s -f /etc/kubeasz/ezctl /usr/bin/ezctl \
+    && ln -s -f /etc/kubeasz/ezdown /usr/bin/ezdown \
       # Cleaning
     && rm -rf ./"$KUBEASZ_VER".tar.gz
