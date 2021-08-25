@@ -1,6 +1,6 @@
 FROM centos:7
 
-ENV NGINX_VERSION=1.18.0 \
+ENV NGINX_VERSION=1.20.1 \
     NG_HTTP_PROXY_VER=v1.0.0
 
 RUN yum install -y \
