@@ -5,7 +5,8 @@ ENV DANTE_VER=1.4.3 \
     WORKERS=1 \
     PORT=8118 \
     USER=dummyUser \
-    PASS=dummyPass
+    PASS=dummyPass \
+    EASZLAB_DANTE_TAG=1.4.3
 
 RUN set -x \
  && yum update -y \
@@ -26,7 +27,6 @@ RUN set -x \
       --without-libwrap \
       --without-bsdauth \
       --without-gssapi \
-      --without-krb5 \
       --without-upnp \
       --without-pam \
  && make && make install \
