@@ -6,7 +6,7 @@
 
 FROM centos:7 as rpm_centos7
 
-ENV NGINX_VERSION=1.18.0
+ENV NGINX_VERSION=1.20.2
 ENV CHRONY_VERSION 4.0
 ENV CHRONY_DOWNLOAD_URL "https://download.tuxfamily.org/chrony/chrony-${CHRONY_VERSION}.tar.gz"
 ENV CHRONY_SHA256 be27ea14c55e7a4434b2fa51d53018c7051c42fa6a3198c9aa6a1658bae0c625
@@ -63,15 +63,16 @@ RUN yum install -y \
 
 FROM alpine:3.12
 
-ENV ETCD_VER=v3.5.0 \
-    CNI_VER=v0.9.1 \
-    HELM_VER=v3.4.2 \
+ENV ETCD_VER=v3.5.1 \
+    CFSSL_VER=1.6.1 \
+    CNI_VER=v1.0.1 \
+    HELM_VER=v3.7.2 \
     DOCKER_COMPOSE_VER=1.23.2 \
-    CALICOCTL_VER=v3.19.2 \
-    CRICTL_VER=v1.21.0 \
-    RUNC_VER=v1.0.0-rc93 \
-    CONTAINERD_VER=1.4.4 \
-    EXT_BIN_VER=0.9.5
+    CALICOCTL_VER=v3.19.3 \
+    CRICTL_VER=v1.22.0 \
+    RUNC_VER=v1.0.3 \
+    CONTAINERD_VER=1.5.8 \
+    EXT_BIN_VER=0.9.6
 
 RUN mkdir -p /extra && \
     \
@@ -81,16 +82,16 @@ RUN mkdir -p /extra && \
     mv etcd etcdctl /extra && \
     cd / && rm -rf etcd-$ETCD_VER-linux-amd64* && \
     \
-    wget https://pkg.cfssl.org/R1.2/cfssl_linux-amd64 && \
-    wget https://pkg.cfssl.org/R1.2/cfssljson_linux-amd64 && \
-    wget https://pkg.cfssl.org/R1.2/cfssl-certinfo_linux-amd64 && \
-    mv cfssl_linux-amd64 /extra/cfssl && \
-    mv cfssljson_linux-amd64 /extra/cfssljson && \
-    mv cfssl-certinfo_linux-amd64 /extra/cfssl-certinfo && \
+    wget https://github.com/cloudflare/cfssl/releases/download/v$CFSSL_VER/cfssl_$CFSSL_VER_linux_amd64 && \
+    wget https://github.com/cloudflare/cfssl/releases/download/v$CFSSL_VER/cfssljson_$CFSSL_VER_linux_amd64 && \
+    wget https://github.com/cloudflare/cfssl/releases/download/v$CFSSL_VER/cfssl-certinfo_$CFSSL_VER_linux_amd64 && \
+    mv cfssl_$CFSSL_VER_linux_amd64 /extra/cfssl && \
+    mv cfssljson_$CFSSL_VER_linux_amd64 /extra/cfssljson && \
+    mv cfssl-certinfo_$CFSSL_VER_linux_amd64 /extra/cfssl-certinfo && \
     \
     wget https://github.com/containernetworking/plugins/releases/download/$CNI_VER/cni-plugins-linux-amd64-$CNI_VER.tgz && \
     mkdir /cni && tar zxf cni-plugins-linux-amd64-$CNI_VER.tgz -C /cni && \
-    cd /cni && mv bridge flannel host-local loopback portmap tuning /extra && \
+    cd /cni && mv bridge host-local loopback portmap tuning /extra && \
     cd / && rm -rf cni* && \
     \
     wget https://get.helm.sh/helm-$HELM_VER-linux-amd64.tar.gz && \
