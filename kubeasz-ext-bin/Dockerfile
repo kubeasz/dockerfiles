@@ -66,13 +66,14 @@ FROM alpine:3.12
 ENV ETCD_VER=v3.5.1 \
     CFSSL_VER=1.6.1 \
     CNI_VER=v1.0.1 \
+    FLANNEL_CNI_VER=v1.0.0 \
     HELM_VER=v3.7.2 \
     DOCKER_COMPOSE_VER=1.23.2 \
     CALICOCTL_VER=v3.19.3 \
     CRICTL_VER=v1.22.0 \
     RUNC_VER=v1.0.3 \
     CONTAINERD_VER=1.5.8 \
-    EXT_BIN_VER=0.9.6
+    EXT_BIN_VER=1.0.0
 
 RUN mkdir -p /extra && \
     \
@@ -93,6 +94,8 @@ RUN mkdir -p /extra && \
     mkdir /cni && tar zxf cni-plugins-linux-amd64-${CNI_VER}.tgz -C /cni && \
     cd /cni && mv bridge host-local loopback portmap tuning /extra && \
     cd / && rm -rf cni* && \
+    wget https://github.com/flannel-io/cni-plugin/releases/download/${FLANNEL_CNI_VER}/flannel-amd64 && \
+    mv flannel-amd64 /extra/flannel && \
     \
     wget https://get.helm.sh/helm-${HELM_VER}-linux-amd64.tar.gz && \
     tar zxf helm-${HELM_VER}-linux-amd64.tar.gz && \
