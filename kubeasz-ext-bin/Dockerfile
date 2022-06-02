@@ -63,17 +63,17 @@ RUN yum install -y \
 
 FROM alpine:3.12
 
-ENV ETCD_VER=v3.5.1 \
+ENV ETCD_VER=v3.5.4 \
     CFSSL_VER=1.6.1 \
-    CNI_VER=v1.0.1 \
-    FLANNEL_CNI_VER=v1.0.0 \
-    HELM_VER=v3.7.2 \
-    DOCKER_COMPOSE_VER=1.23.2 \
-    CALICOCTL_VER=v3.19.3 \
-    CRICTL_VER=v1.22.0 \
-    RUNC_VER=v1.0.3 \
-    CONTAINERD_VER=1.5.8 \
-    EXT_BIN_VER=1.0.0
+    CNI_VER=v1.1.1 \
+    FLANNEL_CNI_VER=v1.1.0 \
+    HELM_VER=v3.8.2 \
+    DOCKER_COMPOSE_VER=1.28.6 \
+    CALICOCTL_VER=v3.19.4 \
+    CRICTL_VER=v1.24.2 \
+    RUNC_VER=v1.1.2 \
+    CONTAINERD_VER=1.6.4 \
+    EXT_BIN_VER=1.1.0
 
 RUN mkdir -p /extra && \
     \
