@@ -102,7 +102,7 @@ RUN apt update && \
 # storing packages on alpine
 FROM alpine:3.12
 
-ENV SYS_PKG_VER=0.4.2
+ENV SYS_PKG_VER=0.4.3
 
 COPY --from=rpm_centos7 /tmp/*.tar.gz /packages/
 
