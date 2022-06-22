@@ -66,6 +66,8 @@ FROM alpine:3.12
 ENV ETCD_VER=v3.5.4 \
     CFSSL_VER=1.6.1 \
     CNI_VER=v1.1.1 \
+    CILIUM_CLI_VER=v0.11.9 \
+    HUBBLE_VER=v0.9.0 \
     FLANNEL_CNI_VER=v1.1.0 \
     HELM_VER=v3.8.2 \
     DOCKER_COMPOSE_VER=1.28.6 \
@@ -73,7 +75,7 @@ ENV ETCD_VER=v3.5.4 \
     CRICTL_VER=v1.24.2 \
     RUNC_VER=v1.1.2 \
     CONTAINERD_VER=1.6.4 \
-    EXT_BIN_VER=1.1.0
+    EXT_BIN_VER=1.2.0
 
 RUN mkdir -p /extra && \
     \
@@ -94,6 +96,14 @@ RUN mkdir -p /extra && \
     mkdir /cni && tar zxf cni-plugins-linux-amd64-${CNI_VER}.tgz -C /cni && \
     cd /cni && mv bridge host-local loopback portmap tuning /extra && \
     cd / && rm -rf cni* && \
+    \
+    wget https://github.com/cilium/cilium-cli/releases/download/${CILIUM_CLI_VER}/cilium-linux-amd64.tar.gz && \
+    tar zxf cilium-linux-amd64.tar.gz -C /extra && \
+    rm -rf cilium-linux-amd64.tar.gz && \
+    wget https://github.com/cilium/hubble/releases/download/${HUBBLE_VER}/hubble-linux-amd64.tar.gz && \
+    tar zxf hubble-linux-amd64.tar.gz -C /extra && \
+    rm -rf hubble-linux-amd64.tar.gz && \
+    \
     wget https://github.com/flannel-io/cni-plugin/releases/download/${FLANNEL_CNI_VER}/flannel-amd64 && \
     mv flannel-amd64 /extra/flannel && \
     \
@@ -115,7 +125,8 @@ RUN mkdir -p /extra && \
     chmod +x runc.amd64 && mv runc.amd64 /extra/containerd-bin/runc && \
     wget https://github.com/containerd/containerd/releases/download/v${CONTAINERD_VER}/containerd-${CONTAINERD_VER}-linux-amd64.tar.gz && \
     tar zxf containerd-${CONTAINERD_VER}-linux-amd64.tar.gz -C /tmp && \
-    mv /tmp/bin/* /extra/containerd-bin
+    mv /tmp/bin/* /extra/containerd-bin && \
+    rm -rf crictl-${CRICTL_VER}-linux-amd64.tar.gz containerd-${CONTAINERD_VER}-linux-amd64.tar.gz
 
 COPY --from=rpm_centos7 /usr/local/nginx/sbin/nginx /extra
 COPY --from=rpm_centos7 /usr/local/sbin/chronyd /extra
