@@ -65,8 +65,8 @@ FROM alpine:3.12
 
 ENV EXT_BUILD_VER=1.0.0
 
-COPY --from=rpm_centos7 /usr/local/nginx/sbin/nginx /extra
-COPY --from=rpm_centos7 /usr/local/sbin/chronyd /extra
-COPY --from=rpm_centos7 /usr/local/sbin/keepalived /extra
+COPY --from=rpm_centos7 /usr/local/nginx/sbin/nginx /bin
+COPY --from=rpm_centos7 /usr/local/sbin/chronyd /bin
+COPY --from=rpm_centos7 /usr/local/sbin/keepalived /bin
 
 CMD [ "sleep", "360000000" ]

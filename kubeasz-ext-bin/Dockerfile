@@ -71,8 +71,8 @@ RUN mkdir -p /extra && \
     mv /tmp/bin/* /extra/containerd-bin && \
     rm -rf crictl-${CRICTL_VER}-linux-amd64.tar.gz containerd-${CONTAINERD_VER}-linux-amd64.tar.gz
 
-COPY --from=easzlab/kubeasz-ext-build:1.0.0 /extra/nginx /extra/nginx
-COPY --from=easzlab/kubeasz-ext-build:1.0.0 /extra/chronyd /extra/chronyd
-COPY --from=easzlab/kubeasz-ext-build:1.0.0 /extra/keepalived /extra/keepalived
+COPY --from=easzlab/kubeasz-ext-build:1.0.0 /bin/nginx /extra/nginx
+COPY --from=easzlab/kubeasz-ext-build:1.0.0 /bin/chronyd /extra/chronyd
+COPY --from=easzlab/kubeasz-ext-build:1.0.0 /bin/keepalived /extra/keepalived
 
 CMD [ "sleep", "360000000" ]
