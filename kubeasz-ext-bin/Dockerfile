@@ -2,7 +2,7 @@
 #
 # @author:  gjmzj
 # @repo:    https://github.com/kubeasz/dockerfiles/kubeasz-ext-bin
-# @ref:     https://github.com/easzlab/kubeasz
+# @ref:     https://github.com/kubernetes/kubernetes/blob/master/build/dependencies.yaml
 
 FROM alpine:3.12
 
