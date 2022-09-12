@@ -58,7 +58,7 @@ RUN mkdir -p /extra && \
     wget https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VER}/docker-compose-Linux-x86_64 && \
     mv docker-compose-Linux-x86_64 /extra/docker-compose && \
     \
-    wget https://github.com/projectcalico/calicoctl/releases/download/${CALICOCTL_VER}/calicoctl-linux-amd64 && \
+    wget https://github.com/projectcalico/calico/releases/download/${CALICOCTL_VER}/calicoctl-linux-amd64 && \
     mv calicoctl-linux-amd64 /extra/calicoctl && \
     \
     mkdir -p /extra/containerd-bin && \
