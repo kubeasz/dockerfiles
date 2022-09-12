@@ -9,16 +9,16 @@ FROM alpine:3.12
 ENV ETCD_VER=v3.5.4 \
     CFSSL_VER=1.6.1 \
     CNI_VER=v1.1.1 \
-    CILIUM_CLI_VER=v0.11.9 \
-    HUBBLE_VER=v0.9.0 \
+    CILIUM_CLI_VER=v0.12.3 \
+    HUBBLE_VER=v0.10.0 \
     FLANNEL_CNI_VER=v1.1.0 \
     HELM_VER=v3.8.2 \
     DOCKER_COMPOSE_VER=1.28.6 \
-    CALICOCTL_VER=v3.19.4 \
+    CALICOCTL_VER=v3.23.3 \
     CRICTL_VER=v1.24.2 \
     RUNC_VER=v1.1.2 \
     CONTAINERD_VER=1.6.4 \
-    EXT_BIN_VER=1.2.0
+    EXT_BIN_VER=1.2.1
 
 RUN mkdir -p /extra && \
     \
