@@ -11,14 +11,13 @@ ENV ETCD_VER=v3.5.4 \
     CNI_VER=v1.1.1 \
     CILIUM_CLI_VER=v0.12.3 \
     HUBBLE_VER=v0.10.0 \
-    FLANNEL_CNI_VER=v1.1.0 \
     HELM_VER=v3.8.2 \
     DOCKER_COMPOSE_VER=1.28.6 \
     CALICOCTL_VER=v3.23.3 \
     CRICTL_VER=v1.24.2 \
     RUNC_VER=v1.1.2 \
     CONTAINERD_VER=1.6.4 \
-    EXT_BIN_VER=1.2.1
+    EXT_BIN_VER=1.2.2
 
 RUN mkdir -p /extra && \
     \
@@ -46,9 +45,6 @@ RUN mkdir -p /extra && \
     wget https://github.com/cilium/hubble/releases/download/${HUBBLE_VER}/hubble-linux-amd64.tar.gz && \
     tar zxf hubble-linux-amd64.tar.gz -C /extra && \
     rm -rf hubble-linux-amd64.tar.gz && \
-    \
-    wget https://github.com/flannel-io/cni-plugin/releases/download/${FLANNEL_CNI_VER}/flannel-amd64 && \
-    mv flannel-amd64 /extra/flannel && \
     \
     wget https://get.helm.sh/helm-${HELM_VER}-linux-amd64.tar.gz && \
     tar zxf helm-${HELM_VER}-linux-amd64.tar.gz && \
