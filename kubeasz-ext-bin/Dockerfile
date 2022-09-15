@@ -11,13 +11,13 @@ ENV ETCD_VER=v3.5.4 \
     CNI_VER=v1.1.1 \
     CILIUM_CLI_VER=v0.12.3 \
     HUBBLE_VER=v0.10.0 \
-    HELM_VER=v3.8.2 \
+    HELM_VER=v3.9.4 \
     DOCKER_COMPOSE_VER=1.28.6 \
     CALICOCTL_VER=v3.23.3 \
-    CRICTL_VER=v1.24.2 \
-    RUNC_VER=v1.1.2 \
-    CONTAINERD_VER=1.6.4 \
-    EXT_BIN_VER=1.2.2
+    CRICTL_VER=v1.25.0 \
+    RUNC_VER=v1.1.4 \
+    CONTAINERD_VER=1.6.8 \
+    EXT_BIN_VER=1.3.0
 
 RUN mkdir -p /extra && \
     \
