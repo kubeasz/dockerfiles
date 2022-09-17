@@ -9,8 +9,6 @@ FROM alpine:3.12
 ENV ETCD_VER=v3.5.4 \
     CFSSL_VER=1.6.1 \
     CNI_VER=v1.1.1 \
-    CILIUM_CLI_VER=v0.12.3 \
-    HUBBLE_VER=v0.10.0 \
     HELM_VER=v3.9.4 \
     DOCKER_COMPOSE_VER=1.28.6 \
     CALICOCTL_VER=v3.23.3 \
@@ -39,9 +37,11 @@ RUN mkdir -p /extra && \
     cd /cni && mv bridge host-local loopback portmap tuning /extra && \
     cd / && rm -rf cni* && \
     \
+    export CILIUM_CLI_VER=$(curl -s https://raw.githubusercontent.com/cilium/cilium-cli/master/stable.txt) && \
     wget https://github.com/cilium/cilium-cli/releases/download/${CILIUM_CLI_VER}/cilium-linux-amd64.tar.gz && \
     tar zxf cilium-linux-amd64.tar.gz -C /extra && \
     rm -rf cilium-linux-amd64.tar.gz && \
+    export HUBBLE_VER=$(curl -s https://raw.githubusercontent.com/cilium/hubble/master/stable.txt) && \
     wget https://github.com/cilium/hubble/releases/download/${HUBBLE_VER}/hubble-linux-amd64.tar.gz && \
     tar zxf hubble-linux-amd64.tar.gz -C /extra && \
     rm -rf hubble-linux-amd64.tar.gz && \
